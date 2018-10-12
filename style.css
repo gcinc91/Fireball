@@ -4,3 +4,21 @@
   top: 15%;
   border: 1px solid black;
 }
+
+#esfera{
+  position: relative;
+  color: black;
+  border: 2px solid #000;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 80px;
+  margin: 0 auto;
+  padding: 35px 0;
+  text-align: center;
+  width: 220px;
+}
+
+.number {
+  display: inline-block;
+  width: 40px;
+}
