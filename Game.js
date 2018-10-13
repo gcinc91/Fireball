@@ -29,7 +29,7 @@ function printSeconds() {
   secUni.innerText = seconds[1];
 }
 
-playerTwo.barraPlayerX = 1200;
+playerTwo.barraPlayerX = (canvas.width * 0.66);
 
 
 
@@ -58,6 +58,7 @@ function update() {
     
     ball.x = 23; 
   } 
+  
 
   // Aumetar la velocidad segun disminuye el tiempo
   if (chronometer.currentTime === 90 && contador === 0) {
