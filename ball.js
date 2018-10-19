@@ -1,8 +1,8 @@
 var ball = {
   x: 100,
   y: 100,
-  vx: 10,
-  vy: 4,
+  vx: 3,
+  vy: 1,
   radius: 25,
   color: "#0080FF",
   draw: function() {

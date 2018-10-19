@@ -29,10 +29,7 @@ function printSeconds() {
   secUni.innerText = seconds[1];
 }
 
-playerTwo.barraPlayerX = (canvas.width * 0.66);
-
-
-
+playerTwo.barraPlayerX = canvas.width * 0.66;
 
 chronometer.setStart();
 printTime();
@@ -50,35 +47,49 @@ function update() {
 
   // Efecto de rebote contra la pared del campo de juego
 
-  if (ball.y + ball.vy > canvas.height - 23 || ball.y + ball.vy < 23) {
-  
-    ball.y = 23;
+  if (ball.y + ball.vy > canvas.height - ball.radius || ball.y + ball.vy < ball.radius) {
+    ball.y = ball.radius;
+    console.log("Entra aqui Tambien, Desaparece por arriba o por abajo");
   }
-  if (ball.x + ball.vx > canvas.width - 23 || ball.x + ball.vx < 23) {
-    
-    ball.x = 23; 
-  } 
-  
+  if (ball.x + ball.vx < 0) {
+    ball.x = canvas.width - ball.radius;
+    console.log(ball.x + ball.vx);
+    console.log("canvas witdh menos radius " + (canvas.width - ball.radius)+ "Entra en la pared de la IZQ");
+  }
+  if(ball.x + ball.vx >= (canvas.width - ball.radius)){
+    ball.x = ball.radius;
+    console.log("Sale por el final???")
+  }
+
+  if (ball.x + ball.radius  >= playerOne.barraPlayerX && ball.x + ball.radius  <= (playerOne.barraPlayerX + playerOne.barraPlayerWith)+ 50 ){
+    ball.vx *= -1;
+    console.log("YEEEEEEEAAAHHHHH REBOTAAAA 1 EJE");
+    console.log("lo que ocupa la bola"+ (ball.x + ball.radius))
+  }
+
+  if (ball.x + ball.radius  >= playerTwo.barraPlayerX && ball.x + ball.radius  <= (playerTwo.barraPlayerX + playerTwo.barraPlayerWith)+ 50 ){
+    ball.vx *= -1;
+    console.log("YEEEEEEEAAAHHHHH REBOTAAAA 2 EJE");
+    console.log("lo que ocupa la bola"+ (ball.x + ball.radius))
+  }
+
+
+  console.log(""+(ball.x+ball.vx));
 
   // Aumetar la velocidad segun disminuye el tiempo
   if (chronometer.currentTime === 90 && contador === 0) {
     ball.vy *= 2;
     ball.vx *= 2;
     contador = 1;
-  }else if (chronometer.currentTime === 60 && contador === 1) {
+  } else if (chronometer.currentTime === 60 && contador === 1) {
     ball.vy *= 2;
     ball.vx *= 2;
     contador = 2;
-  }else if (chronometer.currentTime === 30 && contador === 2) {
+  } else if (chronometer.currentTime === 30 && contador === 2) {
     ball.vy *= 2;
     ball.vx *= 2;
     contador = 3;
   }
-
 }
 
 setInterval(update, 10);
-
-
-
-

@@ -1,11 +1,11 @@
 // Barras de los jugadores
 
 function BarraPlayer() {
-  this.barraPlayerHeigth = canvas.height * 0.2;
-  this.barraPlayerWith = canvas.width * 0.01;
-  this.barraPlayerX = canvas.width * 0.33;
-  this.barraPlayerY = (canvas.height - 150) / 2;
-  this.color = "#000000";
+  this.barraPlayerHeigth = Math.floor(canvas.height * 0.2);
+  this.barraPlayerWith = Math.floor(canvas.width * 0.01);
+  this.barraPlayerX = Math.floor(canvas.width * 0.33);
+  this.barraPlayerY = Math.floor((canvas.height - 150) / 2);
+  this.color = "#D7DF01";
 }
 
 BarraPlayer.prototype.draw = function() {
@@ -21,10 +21,10 @@ BarraPlayer.prototype.draw = function() {
   ctx.fill();
 
   if (pulsaArriba && this.barraPlayerY > 0){
-    this.barraPlayerY -= 7;
+    this.barraPlayerY -= 4;
   }
   else if(pulsaAbajo && this.barraPlayerY < canvas.height - this.barraPlayerHeigth) {
-    this.barraPlayerY += 7;
+    this.barraPlayerY += 4;
   }
 };
 
