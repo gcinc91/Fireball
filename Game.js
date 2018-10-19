@@ -60,21 +60,23 @@ function update() {
     ball.x = ball.radius;
     console.log("Sale por el final???")
   }
-
   if (ball.x + ball.radius  >= playerOne.barraPlayerX && ball.x + ball.radius  <= (playerOne.barraPlayerX + playerOne.barraPlayerWith)+ 50 ){
-    ball.vx *= -1;
-    console.log("YEEEEEEEAAAHHHHH REBOTAAAA 1 EJE");
-    console.log("lo que ocupa la bola"+ (ball.x + ball.radius))
-  }
+    if ((ball.y+ball.radius >= playerOne.barraPlayerY )&& ball.y+ball.radius <= (playerOne.barraPlayerY+playerOne.barraPlayerHeigth)+ 50) {
 
-  if (ball.x + ball.radius  >= playerTwo.barraPlayerX && ball.x + ball.radius  <= (playerTwo.barraPlayerX + playerTwo.barraPlayerWith)+ 50 ){
-    ball.vx *= -1;
-    console.log("YEEEEEEEAAAHHHHH REBOTAAAA 2 EJE");
-    console.log("lo que ocupa la bola"+ (ball.x + ball.radius))
-  }
+      console.log("|||||||||||  la bola va por aqui: "+ (ball.y + ball.radius)+ " |||||||||||||");
+      console.log("Llega aqui y deberia rebotar...");
+      console.log("La Y:"+ playerTwo.barraPlayerY );
+      console.log("La Y mas la Altura: " + (playerOne.barraPlayerY + playerOne.barraPlayerHeigth));
+      ball.vx *= -1;
+      }
+    }
 
+    if ((ball.x + ball.radius  >= playerTwo.barraPlayerX && ball.x + ball.radius  <= (playerTwo.barraPlayerX + playerTwo.barraPlayerWith)+ 50)){
+      if ((ball.y+ball.radius >= playerTwo.barraPlayerY )&& ball.y+ball.radius <= (playerTwo.barraPlayerY+playerTwo.barraPlayerHeigth)+ 50) {
+        ball.vx *= -1;
+      }
+    }
 
-  console.log(""+(ball.x+ball.vx));
 
   // Aumetar la velocidad segun disminuye el tiempo
   if (chronometer.currentTime === 90 && contador === 0) {
