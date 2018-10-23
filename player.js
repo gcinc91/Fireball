@@ -19,34 +19,21 @@ BarraPlayer.prototype.draw = function() {
   ctx.closePath();
   ctx.fillStyle = this.color;
   ctx.fill();
-
-  if (pulsaArriba && this.barraPlayerY > 0){
-    this.barraPlayerY -= 4;
-  }
-  else if(pulsaAbajo && this.barraPlayerY < canvas.height - this.barraPlayerHeigth) {
-    this.barraPlayerY += 4;
-  }
 };
 
-var pulsaArriba = false;
-var pulsaAbajo = false;
+BarraPlayer.prototype.move = function(direcion) {
+    
+  
+    if (direcion && this.barraPlayerY > 0){
+      this.barraPlayerY -= 3;
+      console.log("jugador  subeee");
+      console.log(this.barraPlayerY +" punto Y del a barra");
+    }else if(this.barraPlayerY < canvas.height - this.barraPlayerHeigth){
+    this.barraPlayerY += 3;
+    console.log( "jugador  bajaaaaaa");
+    console.log(this.barraPlayerY +" punto Y del a barra");
+  }
 
+}
+  
 
-  document.addEventListener("keydown", keyDownHandler, false);
-  document.addEventListener("keyup", keyUpHandler, false);
-
-  function keyDownHandler(e) {
-    if (e.keyCode == 87) {
-      pulsaArriba = true;
-    } else if (e.keyCode == 83) {
-      pulsaAbajo = true;
-    }
-  };
-
-  function keyUpHandler(e) {
-    if (e.keyCode == 87) {
-      pulsaArriba = false;
-    } else if (e.keyCode == 83) {
-      pulsaAbajo = false;
-    }
-  };

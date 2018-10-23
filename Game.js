@@ -2,13 +2,101 @@
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
+
 var chronometer = new Chronometer();
 var playerOne = new BarraPlayer();
 var playerTwo = new BarraPlayer();
+
 var minDec = document.getElementById("minDec");
 var minUni = document.getElementById("minUni");
 var secDec = document.getElementById("secDec");
 var secUni = document.getElementById("secUni");
+
+window.addEventListener("keydown", onkeydown, false);
+window.addEventListener("keyup", keyUpHandler, false);
+
+var keysMap = {
+  w: 87,
+  s: 83,
+  o: 79,
+  l: 76
+};
+
+var map = {
+  87: false,
+  83: false,
+  79: false,
+  76: false
+};
+
+function setMove() {
+  Object.keys(map).map(function(key, index) {
+    // Player one
+    if (map[87]) {
+      if (map[79]) {
+        playerOne.move(1);
+        playerTwo.move(1);
+      } else if (map[76]) {
+        playerOne.move(1);
+        playerTwo.move(0);
+      } else {
+        playerOne.move(1);
+      }
+    }
+    if (map[83]) {
+      if (map[79]) {
+        playerOne.move(0);
+        playerTwo.move(1);
+      } else if (map[76]) {
+        playerOne.move(0);
+        playerTwo.move(0);
+      } else {
+        playerOne.move(0);
+      }
+    }
+
+    // Player two
+    if (map[79]) {
+      if (map[87]) {
+        playerOne.move(1);
+        playerTwo.move(1);
+      } else if (map[83]) {
+        playerOne.move(0);
+        playerTwo.move(1);
+      } else {
+        playerTwo.move(1);
+      }
+    }
+    if (map[76]) {
+      if (map[87]) {
+        playerOne.move(1);
+        playerTwo.move(0);
+      } else if (map[83]) {
+        playerOne.move(0);
+        playerTwo.move(0);
+      } else {
+        playerTwo.move(0);
+      }
+    }
+  });
+}
+
+setInterval(setMove, 25);
+
+function onkeydown(e) {
+  if (e.keyCode in map) {
+    map[e.keyCode] = true;
+  }
+}
+
+function keyUpHandler(e) {
+  if (e.keyCode in map) {
+    map[e.keyCode] = false;
+  }
+}
+
+//Barra del jugador 2 en otro eje distinto del jugador 1
+playerTwo.barraPlayerX = Math.floor(canvas.width * 0.66);
 
 function printTime() {
   var intervalId = setInterval(function() {
@@ -29,8 +117,6 @@ function printSeconds() {
   secUni.innerText = seconds[1];
 }
 
-playerTwo.barraPlayerX = canvas.width * 0.66;
-
 chronometer.setStart();
 printTime();
 
@@ -45,38 +131,59 @@ function update() {
   ball.x += ball.vx;
   ball.y += ball.vy;
 
-  // Efecto de rebote contra la pared del campo de juego
-
-  if (ball.y + ball.vy > canvas.height - ball.radius || ball.y + ball.vy < ball.radius) {
+  // La bola sale por arriba o por abajo y sale por el lado contrario
+  if (
+    ball.y + ball.vy > canvas.height - ball.radius ||
+    ball.y + ball.vy < ball.radius
+  ) {
     ball.y = ball.radius;
-    console.log("Entra aqui Tambien, Desaparece por arriba o por abajo");
   }
+  //si la bola es menor que 0 entra por la pared izquierda y sale por la derecha
   if (ball.x + ball.vx < 0) {
     ball.x = canvas.width - ball.radius;
-    console.log(ball.x + ball.vx);
-    console.log("canvas witdh menos radius " + (canvas.width - ball.radius)+ "Entra en la pared de la IZQ");
   }
-  if(ball.x + ball.vx >= (canvas.width - ball.radius)){
+  //si la bola es menor que 0 entra por la pared derecha y sale por la izquierda
+  if (ball.x + ball.vx >= canvas.width - ball.radius) {
     ball.x = ball.radius;
-    console.log("Sale por el final???")
   }
-  if (ball.x + ball.radius  >= playerOne.barraPlayerX && ball.x + ball.radius  <= (playerOne.barraPlayerX + playerOne.barraPlayerWith)+ 50 ){
-    if ((ball.y+ball.radius >= playerOne.barraPlayerY )&& ball.y+ball.radius <= (playerOne.barraPlayerY+playerOne.barraPlayerHeigth)+ 50) {
-
-      console.log("|||||||||||  la bola va por aqui: "+ (ball.y + ball.radius)+ " |||||||||||||");
-      console.log("Llega aqui y deberia rebotar...");
-      console.log("La Y:"+ playerTwo.barraPlayerY );
-      console.log("La Y mas la Altura: " + (playerOne.barraPlayerY + playerOne.barraPlayerHeigth));
-      ball.vx *= -1;
-      }
+  // Si la bola esta en el eje X del primer jugador  yyyyy
+  if (
+    ball.x + ball.radius >= playerOne.barraPlayerX &&
+    ball.x + ball.radius <= playerOne.barraPlayerX + playerOne.barraPlayerWith
+  ) {
+    if (
+      ball.y + ball.radius >= playerOne.barraPlayerY &&
+      ball.y + ball.radius <=
+        playerOne.barraPlayerY + playerOne.barraPlayerHeigth
+    ) {
+      //alert("1 Vida menos  J1!!");
+    } else if (
+      ball.y + ball.radius >= playerOne.barraPlayerY &&
+      ball.y + ball.radius <= playerOne.barraPlayerY
+    ) {
+      console.log("Esta entrando en la parte Horizontal");
+      //alert("1 Vida menos  J1!!");
     }
+  }
 
-    if ((ball.x + ball.radius  >= playerTwo.barraPlayerX && ball.x + ball.radius  <= (playerTwo.barraPlayerX + playerTwo.barraPlayerWith)+ 50)){
-      if ((ball.y+ball.radius >= playerTwo.barraPlayerY )&& ball.y+ball.radius <= (playerTwo.barraPlayerY+playerTwo.barraPlayerHeigth)+ 50) {
-        ball.vx *= -1;
-      }
+  if (
+    ball.x + ball.radius >= playerTwo.barraPlayerX &&
+    ball.x + ball.radius <= playerTwo.barraPlayerX + playerTwo.barraPlayerWith
+  ) {
+    if (
+      ball.y + ball.radius - 2 >= playerTwo.barraPlayerY &&
+      ball.y + ball.radius - 2 <=
+        playerTwo.barraPlayerY + playerTwo.barraPlayerHeigth
+    ) {
+      //alert("1 Vida menos  J2!!");
+    } else if (
+      ball.y + ball.radius >= playerOne.barraPlayerY &&
+      ball.y + ball.radius <= playerOne.barraPlayerY
+    ) {
+      console.log("Esta entrando en la parte Horizontal J2");
+      //alert("1 Vida menos  J2!!");
     }
-
+  }
 
   // Aumetar la velocidad segun disminuye el tiempo
   if (chronometer.currentTime === 90 && contador === 0) {
@@ -91,6 +198,9 @@ function update() {
     ball.vy *= 2;
     ball.vx *= 2;
     contador = 3;
+  } else if (chronometer.currentTime === 0 && contador === 3) {
+    alert("Game Over!!");
+    contador++;
   }
 }
 
