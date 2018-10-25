@@ -22,18 +22,10 @@ BarraPlayer.prototype.draw = function() {
 };
 
 BarraPlayer.prototype.move = function(direcion) {
-    
-  
-    if (direcion && this.barraPlayerY > 0){
-      this.barraPlayerY -= 3;
-      console.log("jugador  subeee");
-      console.log(this.barraPlayerY +" punto Y del a barra");
-    }else if(this.barraPlayerY < canvas.height - this.barraPlayerHeigth){
-    this.barraPlayerY += 3;
-    console.log( "jugador  bajaaaaaa");
-    console.log(this.barraPlayerY +" punto Y del a barra");
+  if (direcion && this.barraPlayerY > 0) {
+    this.barraPlayerY -= 1;
+  } else if (this.barraPlayerY < canvas.height - this.barraPlayerHeigth) {
+    this.barraPlayerY += 1;
   }
-
-}
-  
+};
 

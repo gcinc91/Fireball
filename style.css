@@ -7,6 +7,10 @@
   top: 15%;
   border: 1px solid black;
 }
+body{
+  height: 100vh;
+  width: 100vw;
+}
 
 #esfera{
   position: relative;
@@ -24,4 +28,12 @@
 .number {
   display: inline-block;
   width: 40px;
+}
+
+#gameOver{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 50vw;
+  height: 50vh;
 }

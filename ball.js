@@ -1,8 +1,8 @@
 var ball = {
   x: 100,
   y: 100,
-  vx: 3,
-  vy: 1,
+  vx: 5,
+  vy: 2,
   radius: 25,
   color: "#0080FF",
   draw: function() {
@@ -11,6 +11,10 @@ var ball = {
     ctx.closePath();
     ctx.fillStyle = this.color;
     ctx.fill();
+  },
+  reset: function (){
+    this.x = 100;
+    this.y = 100;
   }
 };
 

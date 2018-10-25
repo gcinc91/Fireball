@@ -1,6 +1,8 @@
 // Game.js
-
+var gameOver = document.getElementById("gameOver");
+gameOver.style.display = "none";
 var canvas = document.getElementById("canvas");
+
 var ctx = canvas.getContext("2d");
 
 var chronometer = new Chronometer();
@@ -15,12 +17,8 @@ var secUni = document.getElementById("secUni");
 window.addEventListener("keydown", onkeydown, false);
 window.addEventListener("keyup", keyUpHandler, false);
 
-var keysMap = {
-  w: 87,
-  s: 83,
-  o: 79,
-  l: 76
-};
+var lifePlayerOne = 3;
+var lifePlayerTwo = 3;
 
 var map = {
   87: false,
@@ -81,8 +79,6 @@ function setMove() {
   });
 }
 
-setInterval(setMove, 25);
-
 function onkeydown(e) {
   if (e.keyCode in map) {
     map[e.keyCode] = true;
@@ -117,11 +113,14 @@ function printSeconds() {
   secUni.innerText = seconds[1];
 }
 
+
+
 chronometer.setStart();
 printTime();
 
 //contador necesario para el aumento de la velocidad segun tiempo
 var contador = 0;
+var tiempoActual = 0;
 
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -146,41 +145,49 @@ function update() {
   if (ball.x + ball.vx >= canvas.width - ball.radius) {
     ball.x = ball.radius;
   }
+
   // Si la bola esta en el eje X del primer jugador  yyyyy
   if (
-    ball.x + ball.radius >= playerOne.barraPlayerX &&
+    ball.x + ball.radius - 3 >= playerOne.barraPlayerX &&
     ball.x + ball.radius <= playerOne.barraPlayerX + playerOne.barraPlayerWith
   ) {
     if (
-      ball.y + ball.radius >= playerOne.barraPlayerY &&
+      ball.y + ball.radius - 3 >= playerOne.barraPlayerY &&
       ball.y + ball.radius <=
         playerOne.barraPlayerY + playerOne.barraPlayerHeigth
     ) {
-      //alert("1 Vida menos  J1!!");
+      
     } else if (
-      ball.y + ball.radius >= playerOne.barraPlayerY &&
-      ball.y + ball.radius <= playerOne.barraPlayerY
+      ball.y + ball.radius - 3 >= playerOne.barraPlayerY &&
+      ball.y + ball.radius - 3 <= playerOne.barraPlayerY
     ) {
-      console.log("Esta entrando en la parte Horizontal");
       //alert("1 Vida menos  J1!!");
+      
     }
   }
 
   if (
-    ball.x + ball.radius >= playerTwo.barraPlayerX &&
-    ball.x + ball.radius <= playerTwo.barraPlayerX + playerTwo.barraPlayerWith
+    ball.x + ball.radius - 3 >= playerTwo.barraPlayerX &&
+    ball.x + ball.radius - 3 <=
+      playerTwo.barraPlayerX + playerTwo.barraPlayerWith
   ) {
     if (
-      ball.y + ball.radius - 2 >= playerTwo.barraPlayerY &&
-      ball.y + ball.radius - 2 <=
+      ball.y + ball.radius >= playerTwo.barraPlayerY &&
+      ball.y + ball.radius <=
         playerTwo.barraPlayerY + playerTwo.barraPlayerHeigth
     ) {
+      console.log("aqui entro 2");
+      lifePlayerOne--;
+      clearInterval(detener);
+      setTimeout(function(){ball.reset(); startInterval()} , 1000);
+
       //alert("1 Vida menos  J2!!");
     } else if (
-      ball.y + ball.radius >= playerOne.barraPlayerY &&
-      ball.y + ball.radius <= playerOne.barraPlayerY
+      ball.y + ball.radius - 3 >= playerOne.barraPlayerY &&
+      ball.y + ball.radius - 3 <= playerOne.barraPlayerY
     ) {
-      console.log("Esta entrando en la parte Horizontal J2");
+      
+
       //alert("1 Vida menos  J2!!");
     }
   }
@@ -202,6 +209,19 @@ function update() {
     alert("Game Over!!");
     contador++;
   }
+
+  if (lifePlayerOne === 0 || lifePlayerTwo === 0) {
+    document.getElementById("canvas").style.display = "none";
+    document.getElementById("gameOver").style.display = "block";
+    clearInterval(detener);
+  }
 }
 
-setInterval(update, 10);
+function startInterval() {
+  detener = setInterval(update, 10);
+}
+
+
+setInterval(setMove, 10);
+startInterval();
+var detener;
