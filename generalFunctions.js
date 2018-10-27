@@ -48,15 +48,12 @@ function sinVidas() {
 }
 
 function colisionJ1() {
-  if (
-    ball.x + ball.radius - 3 >= playerOne.barraPlayerX &&
-    ball.x + ball.radius <= playerOne.barraPlayerX + playerOne.barraPlayerWith
-  ) {
+  if (ball.x + ball.radius >= playerOne.barraPlayerX && ball.x + ball.radius <= playerOne.barraPlayerX + playerOne.barraPlayerWith) {
     if (
-      ball.y + ball.radius - 3 >= playerOne.barraPlayerY &&
-      ball.y + ball.radius <=
-        playerOne.barraPlayerY + playerOne.barraPlayerHeigth
-    ) {
+      (ball.y + ball.radius -3 >= playerOne.barraPlayerY && ball.y + ball.radius - 3 <= playerOne.barraPlayerY + playerOne.barraPlayerHeigth) ||
+      (ball.y - ball.radius + 3 >= playerOne.barraPlayerY && ball.y - ball.radius + 3 <=  playerOne.barraPlayerY + playerOne.barraPlayerHeigth)
+    ) 
+    {
       lifePlayerOne--;
       quitarVidaP1();
       clearInterval(detener);
@@ -65,8 +62,8 @@ function colisionJ1() {
         startInterval();
       }, 1000);
     } else if (
-      ball.y + ball.radius - 3 >= playerOne.barraPlayerY &&
-      ball.y + ball.radius - 3 <= playerOne.barraPlayerY
+      ball.y + ball.radius -3 >= playerOne.barraPlayerY &&
+      ball.y + ball.radius -3<= playerOne.barraPlayerY
     ) {
       lifePlayerOne--;
       quitarVidaP1();
@@ -82,14 +79,13 @@ function colisionJ1() {
 
 function colisionJ2() {
   if (
-    ball.x + ball.radius - 3 >= playerTwo.barraPlayerX &&
-    ball.x + ball.radius - 3 <=
+    ball.x + ball.radius -3  >= playerTwo.barraPlayerX &&
+    ball.x + ball.radius -3 <=
       playerTwo.barraPlayerX + playerTwo.barraPlayerWith
   ) {
     if (
-      ball.y + ball.radius >= playerTwo.barraPlayerY &&
-      ball.y + ball.radius <=
-        playerTwo.barraPlayerY + playerTwo.barraPlayerHeigth
+      (ball.y + ball.radius -3 >= playerTwo.barraPlayerY && ball.y + ball.radius -3 <=  playerTwo.barraPlayerY + playerTwo.barraPlayerHeigth) ||
+      (ball.y - ball.radius + 3 >= playerTwo.barraPlayerY && ball.y - ball.radius + 3 <=  playerTwo.barraPlayerY + playerTwo.barraPlayerHeigth)
     ) {
       lifePlayerTwo--;
       quitarVidaP2();
@@ -100,10 +96,7 @@ function colisionJ2() {
       }, 1000);
 
       //alert("1 Vida menos  J2!!");
-    } else if (
-      ball.y + ball.radius - 3 >= playerOne.barraPlayerY &&
-      ball.y + ball.radius - 3 <= playerOne.barraPlayerY
-    ) {
+    } else if ( ball.y + ball.radius -3 >= playerTwo.barraPlayerY && ball.y + ball.radius -3 <= playerTwo.barraPlayerY) {
       lifePlayerTwo--;
       quitarVidaP2();
       clearInterval(detener);
@@ -187,13 +180,3 @@ function colisionParedes() {
     ball.x = ball.radius;
   }
 }
-
-function comprobarNombresIntroducidos() {
-  if (
-    document.getElementById("input2").value === "" ||
-    document.getElementById("input1").value === ""
-  ) {
-    alert("Los jugadores deben introducir su nombre para Jugar");
-  }
-}
-

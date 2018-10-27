@@ -68,13 +68,16 @@ function startInterval() {
 }
 
 function startGame() {
-  efectosVisules2();
-  comprobarNombresIntroducidos();
-  jugador1.innerText = document.getElementById("input1").value;
-  jugador2.innerText = document.getElementById("input2").value;
-  startInterval();
-  chronometer.setStart();
-  printTime();
+  if (document.getElementById("input2").value != "" && document.getElementById("input1").value != "") {
+    efectosVisules2();
+    jugador1.innerText = document.getElementById("input1").value;
+    jugador2.innerText = document.getElementById("input2").value;
+    startInterval();
+    chronometer.setStart();
+    printTime();
+  } else {
+    alert("Los jugadores deben introducir su nombre para Jugar");
+  }
 }
 
 function playAgain() {

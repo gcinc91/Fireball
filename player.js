@@ -5,7 +5,7 @@ function BarraPlayer() {
   this.barraPlayerWith = Math.floor(canvas.width * 0.01);
   this.barraPlayerX = Math.floor(canvas.width * 0.33);
   this.barraPlayerY = Math.floor((canvas.height - 150) / 2);
-  this.color = "#D7DF01";
+  this.color = "#CA0000";
 }
 
 BarraPlayer.prototype.draw = function() {
