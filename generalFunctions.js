@@ -148,18 +148,32 @@ function aceleradorTiempo() {
   if (chronometer.currentTime === 90 && contador === 0) {
     ball.vy *= 1.2;
     ball.vx *= 1.2;
+    myAudio.pause();
+    myAudio.currentTime = 0.0;
+    efecto1.play();
+    myAudio2.play();
     contador = 1;
   } else if (chronometer.currentTime === 60 && contador === 1) {
     ball.vy *= 1.5;
     ball.vx *= 1.5;
+    myAudio2.pause();
+    myAudio2.currentTime = 0.0;
+    efecto1.play();
+    myAudio3.play();
     contador = 2;
   } else if (chronometer.currentTime === 30 && contador === 2) {
-    ball.vy *= 2;
-    ball.vx *= 2;
+    ball.vy *= 1.5;
+    ball.vx *= 1.5;
+    myAudio3.pause();
+    myAudio3.currentTime = 0.0;
+    efecto2.play();
+    myAudio4.play();
     contador = 3;
   } else if (chronometer.currentTime === 0 && contador === 3) {
-    sinVidas();
-    contador++;
+    lifePlayerOne--;
+    lifePlayerTwo--;
+    chronometer.currentTime = 60;
+    contador = 0;
   }
 }
 

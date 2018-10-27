@@ -29,6 +29,12 @@ var chronometer = new Chronometer();
 var playerOne = new BarraPlayer();
 var playerTwo = new BarraPlayer();
 var detener;
+var myAudio = new Audio("./audios/shrek.mov");
+var myAudio2 = new Audio("./audios/lil_pump.mov");
+var myAudio3 = new Audio("./audios/bustaRhymes.mov");
+var myAudio4 = new Audio("./audios/eminem.mov");
+var efecto1 = new Audio("./audios/efecto1.mov");
+var efecto2 = new Audio("./audios/efecto2.mov");
 
 var minDec = document.getElementById("minDec");
 var minUni = document.getElementById("minUni");
@@ -74,6 +80,7 @@ function startGame() {
     jugador2.innerText = document.getElementById("input2").value;
     startInterval();
     chronometer.setStart();
+    myAudio.play();
     printTime();
   } else {
     alert("Los jugadores deben introducir su nombre para Jugar");
@@ -104,5 +111,6 @@ function update() {
   // Aumetar la velocidad segun disminuye el tiempo y se acaba el tiempo pierden los dos
   aceleradorTiempo();
 }
+
 
 setInterval(setMove, 10);
