@@ -1,13 +1,34 @@
 // Game.js
+var imagenesInicio = document.getElementById("imagenesInicio");
+var startButton = document.getElementById("start-button");
+var reloj = document.getElementById("reloj");
+var jugador1 = document.getElementById("changeNameOne");
+var jugador2 = document.getElementById("changeNameTwo");
+var vidaOneP1 = document.getElementById("vidaOneP1");
+var vidaTwoP1 = document.getElementById("vidaTwoP1");
+var vidaThreeP1 = document.getElementById("vidaThreeP1");
+var vidaOneP2 = document.getElementById("vidaOneP2");
+var vidaTwoP2 = document.getElementById("vidaTwoP2");
+var vidaThreeP2 = document.getElementById("vidaThreeP2");
+var resultadoPlayer1 = document.getElementById("resultadoPlayer1");
+var resultadoPlayer2 = document.getElementById("resultadoPlayer2");
+var resultadoImageWinP1 = document.getElementById("resultadoImageWinP1");
+var resultadoImageWinP2 = document.getElementById("resultadoImageWinP2");
+var resultadoImageLoseP1 = document.getElementById("resultadoImageLoseP1");
+var resultadoImageLoseP2 = document.getElementById("resultadoImageLoseP2");
+var imagenAgain = document.getElementById("imgAgain");
+var againBtn = document.getElementById("again-button");
 var gameOver = document.getElementById("gameOver");
-gameOver.style.display = "none";
+var youWin = document.getElementById("youWin");
 var canvas = document.getElementById("canvas");
-
 var ctx = canvas.getContext("2d");
+
+efectosVisules1();
 
 var chronometer = new Chronometer();
 var playerOne = new BarraPlayer();
 var playerTwo = new BarraPlayer();
+var detener;
 
 var minDec = document.getElementById("minDec");
 var minUni = document.getElementById("minUni");
@@ -19,77 +40,6 @@ window.addEventListener("keyup", keyUpHandler, false);
 
 var lifePlayerOne = 3;
 var lifePlayerTwo = 3;
-
-var map = {
-  87: false,
-  83: false,
-  79: false,
-  76: false
-};
-
-function setMove() {
-  Object.keys(map).map(function(key, index) {
-    // Player one
-    if (map[87]) {
-      if (map[79]) {
-        playerOne.move(1);
-        playerTwo.move(1);
-      } else if (map[76]) {
-        playerOne.move(1);
-        playerTwo.move(0);
-      } else {
-        playerOne.move(1);
-      }
-    }
-    if (map[83]) {
-      if (map[79]) {
-        playerOne.move(0);
-        playerTwo.move(1);
-      } else if (map[76]) {
-        playerOne.move(0);
-        playerTwo.move(0);
-      } else {
-        playerOne.move(0);
-      }
-    }
-
-    // Player two
-    if (map[79]) {
-      if (map[87]) {
-        playerOne.move(1);
-        playerTwo.move(1);
-      } else if (map[83]) {
-        playerOne.move(0);
-        playerTwo.move(1);
-      } else {
-        playerTwo.move(1);
-      }
-    }
-    if (map[76]) {
-      if (map[87]) {
-        playerOne.move(1);
-        playerTwo.move(0);
-      } else if (map[83]) {
-        playerOne.move(0);
-        playerTwo.move(0);
-      } else {
-        playerTwo.move(0);
-      }
-    }
-  });
-}
-
-function onkeydown(e) {
-  if (e.keyCode in map) {
-    map[e.keyCode] = true;
-  }
-}
-
-function keyUpHandler(e) {
-  if (e.keyCode in map) {
-    map[e.keyCode] = false;
-  }
-}
 
 //Barra del jugador 2 en otro eje distinto del jugador 1
 playerTwo.barraPlayerX = Math.floor(canvas.width * 0.66);
@@ -113,115 +63,43 @@ function printSeconds() {
   secUni.innerText = seconds[1];
 }
 
+function startInterval() {
+  detener = setInterval(update, 10);
+}
 
+function startGame() {
+  efectosVisules2();
+  comprobarNombresIntroducidos();
+  jugador1.innerText = document.getElementById("input1").value;
+  jugador2.innerText = document.getElementById("input2").value;
+  startInterval();
+  chronometer.setStart();
+  printTime();
+}
 
-chronometer.setStart();
-printTime();
+function playAgain() {
+  location.reload();
+}
+
 
 //contador necesario para el aumento de la velocidad segun tiempo
 var contador = 0;
-var tiempoActual = 0;
 
 function update() {
+  //pintar todo y poner la pelota en movimiento
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ball.draw();
   playerOne.draw();
   playerTwo.draw();
   ball.x += ball.vx;
   ball.y += ball.vy;
-
-  // La bola sale por arriba o por abajo y sale por el lado contrario
-  if (
-    ball.y + ball.vy > canvas.height - ball.radius ||
-    ball.y + ball.vy < ball.radius
-  ) {
-    ball.y = ball.radius;
-  }
-  //si la bola es menor que 0 entra por la pared izquierda y sale por la derecha
-  if (ball.x + ball.vx < 0) {
-    ball.x = canvas.width - ball.radius;
-  }
-  //si la bola es menor que 0 entra por la pared derecha y sale por la izquierda
-  if (ball.x + ball.vx >= canvas.width - ball.radius) {
-    ball.x = ball.radius;
-  }
-
-  // Si la bola esta en el eje X del primer jugador  yyyyy
-  if (
-    ball.x + ball.radius - 3 >= playerOne.barraPlayerX &&
-    ball.x + ball.radius <= playerOne.barraPlayerX + playerOne.barraPlayerWith
-  ) {
-    if (
-      ball.y + ball.radius - 3 >= playerOne.barraPlayerY &&
-      ball.y + ball.radius <=
-        playerOne.barraPlayerY + playerOne.barraPlayerHeigth
-    ) {
-      
-    } else if (
-      ball.y + ball.radius - 3 >= playerOne.barraPlayerY &&
-      ball.y + ball.radius - 3 <= playerOne.barraPlayerY
-    ) {
-      //alert("1 Vida menos  J1!!");
-      
-    }
-  }
-
-  if (
-    ball.x + ball.radius - 3 >= playerTwo.barraPlayerX &&
-    ball.x + ball.radius - 3 <=
-      playerTwo.barraPlayerX + playerTwo.barraPlayerWith
-  ) {
-    if (
-      ball.y + ball.radius >= playerTwo.barraPlayerY &&
-      ball.y + ball.radius <=
-        playerTwo.barraPlayerY + playerTwo.barraPlayerHeigth
-    ) {
-      console.log("aqui entro 2");
-      lifePlayerOne--;
-      clearInterval(detener);
-      setTimeout(function(){ball.reset(); startInterval()} , 1000);
-
-      //alert("1 Vida menos  J2!!");
-    } else if (
-      ball.y + ball.radius - 3 >= playerOne.barraPlayerY &&
-      ball.y + ball.radius - 3 <= playerOne.barraPlayerY
-    ) {
-      
-
-      //alert("1 Vida menos  J2!!");
-    }
-  }
-
-  // Aumetar la velocidad segun disminuye el tiempo
-  if (chronometer.currentTime === 90 && contador === 0) {
-    ball.vy *= 2;
-    ball.vx *= 2;
-    contador = 1;
-  } else if (chronometer.currentTime === 60 && contador === 1) {
-    ball.vy *= 2;
-    ball.vx *= 2;
-    contador = 2;
-  } else if (chronometer.currentTime === 30 && contador === 2) {
-    ball.vy *= 2;
-    ball.vx *= 2;
-    contador = 3;
-  } else if (chronometer.currentTime === 0 && contador === 3) {
-    alert("Game Over!!");
-    contador++;
-  }
-
-  if (lifePlayerOne === 0 || lifePlayerTwo === 0) {
-    document.getElementById("canvas").style.display = "none";
-    document.getElementById("gameOver").style.display = "block";
-    clearInterval(detener);
-  }
+  //colisiona con las paredes?
+  colisionParedes();
+  // Colisiona con alguno de los jugadores??
+  colisionJ1();
+  colisionJ2();
+  // Aumetar la velocidad segun disminuye el tiempo y se acaba el tiempo pierden los dos
+  aceleradorTiempo();
 }
-
-function startInterval() {
-  detener = setInterval(update, 10);
-}
-
 
 setInterval(setMove, 10);
-startInterval();
-var detener;

@@ -1,19 +1,26 @@
+*{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin: 0;
+}
 
-
+body {
+  height: 1000px;
+  width: 1500px;  
+}
 
 #canvas {
   position: absolute;
   left: 15%;
   top: 15%;
-  border: 1px solid black;
-}
-body{
-  height: 100vh;
-  width: 100vw;
+  border: 5px solid black;
+  display: none;
+  background: url("./images/background/puntos_Amarillos.jpg")
 }
 
-#esfera{
-  position: relative;
+
+#esfera {
+  position: absolute;
+  left: 40%;
   color: black;
   border: 2px solid #000;
   border-radius: 20px;
@@ -30,10 +37,113 @@ body{
   width: 40px;
 }
 
-#gameOver{
+.imagenesInicio {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  width: 50vw;
-  height: 50vh;
+  align-items: flex-start;
+  background: url("./images/Inicio/fireball_initial_cuatro.jpg") no-repeat center center fixed;
+  height: 120%;
+  width: 180%;
 }
+
+
+
+.prueba {
+  background: black;
+  left: 750px;
+  top: 450px;
+  position: relative;
+  width: 70px;
+  height: 80px;
+}
+
+.botonStart {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  top: 33%;
+  left: 46%;
+  font-size: 2.5em;
+  border: 0;
+  background: transparent;
+}
+
+.stylesPlayerOne{
+  font-size: 7em;
+  position: absolute;
+  left: 25%;
+  top: 20%;
+}
+
+input{
+  height: 70;
+  border-width: 5px;
+  font-size: 25px;
+  max-width: 300px;
+}
+
+
+.stylesPlayerTwo{
+  font-size: 7em;
+  position: absolute;
+  left: 63%;
+  top: 20%;
+}
+
+
+.jugador1{
+  font-size: 5em;
+  position: absolute;
+  left: 20%;
+  top: 2%;
+  flex-direction: row;
+}
+
+.jugador2{
+  font-size: 5em;
+  position: absolute;
+  left: 60%;
+  top: 2%;
+  flex-direction: row;
+}
+.vidas{
+  width: 50px;
+  height: 50px;
+}
+.vidasj1{
+  left: 27%;
+  top: 5%;
+}
+.vidasj2{
+  left: 72%;
+  top: 5%;
+}
+
+.ganarPerderP1{
+  position: absolute;
+  left: 22%;
+  top: 31%;
+}
+.ganarPerderP2{
+  position: absolute;
+  left: 60%;
+  top: 31%;
+}
+
+.botonAgain{
+  position: absolute;
+  left: 46%;
+  top: 52%;
+  height: 200px;
+  width: 200px;
+  font-size: 2.5em;
+  border: 0;
+  background: transparent;
+}
+
+.playAgain{
+  position: absolute;
+  left: 40%;
+  top: 50%;
+}
+

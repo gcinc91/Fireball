@@ -29,3 +29,75 @@ BarraPlayer.prototype.move = function(direcion) {
   }
 };
 
+
+var map = {
+  87: false,
+  83: false,
+  79: false,
+  76: false
+};
+
+function setMove() {
+  Object.keys(map).map(function(key, index) {
+    // Player one
+    if (map[87]) {
+      if (map[79]) {
+        playerOne.move(1);
+        playerTwo.move(1);
+      } else if (map[76]) {
+        playerOne.move(1);
+        playerTwo.move(0);
+      } else {
+        playerOne.move(1);
+      }
+    }
+    if (map[83]) {
+      if (map[79]) {
+        playerOne.move(0);
+        playerTwo.move(1);
+      } else if (map[76]) {
+        playerOne.move(0);
+        playerTwo.move(0);
+      } else {
+        playerOne.move(0);
+      }
+    }
+
+    // Player two
+    if (map[79]) {
+      if (map[87]) {
+        playerOne.move(1);
+        playerTwo.move(1);
+      } else if (map[83]) {
+        playerOne.move(0);
+        playerTwo.move(1);
+      } else {
+        playerTwo.move(1);
+      }
+    }
+    if (map[76]) {
+      if (map[87]) {
+        playerOne.move(1);
+        playerTwo.move(0);
+      } else if (map[83]) {
+        playerOne.move(0);
+        playerTwo.move(0);
+      } else {
+        playerTwo.move(0);
+      }
+    }
+  });
+}
+
+function onkeydown(e) {
+  if (e.keyCode in map) {
+    map[e.keyCode] = true;
+  }
+}
+
+function keyUpHandler(e) {
+  if (e.keyCode in map) {
+    map[e.keyCode] = false;
+  }
+}
+

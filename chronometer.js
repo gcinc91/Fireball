@@ -32,7 +32,7 @@ Chronometer.prototype.setSeconds = function() {
 Chronometer.prototype.twoDigitsNumber = function(value) {
   if (value < 10) {
     return "0" + value;
-  } else {
+  }else{
     return value + "";
   }
 };

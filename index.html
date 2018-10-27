@@ -5,20 +5,95 @@
 <body>
 
 
-<canvas id="canvas" width="1500vw" height="900vh"></canvas>
+  <div>
+    <div id="jugador1" class="jugador1">
+      <span id="changeNameOne"> Prueba 1</span>
+      <div class="vidasj1">
+        <img id="vidaOneP1" class="vidas" src="./images/Vidas/vidas.png" />
+        <img id="vidaTwoP1" class="vidas" src="./images/Vidas/vidas.png" />
+        <img id="vidaThreeP1" class="vidas" src="./images/Vidas/vidas.png" />
+      </div>
 
-<section id="reloj">
-  <div id="esfera">
-    <span id="minDec" class="number">0</span><span id="minUni" class="number">2</span><span>:</span><span id="secDec" class="number">0</span><span id="secUni" class="number">0</span>
- </div>
-</section>
 
-<div><img id="gameOver" src="./images/gameoversvg.svg" alt=""></div>
+    </div>
 
-<script src="ball.js"></script>
-<script src="chronometer.js"></script>
-<script src="player.js"></script>
-<script src="Game.js"></script>
+    <div id="jugador2" class="jugador2">
+      <span id="changeNameTwo"> Prueba 2</span>
+      <div class="vidasj2">
+        <img class="vidas" id="vidaOneP2" src="./images/Vidas/vidas.png" />
+        <img class="vidas" id="vidaTwoP2" src="./images/Vidas/vidas.png" />
+        <img class="vidas" id="vidaThreeP2" src="./images/Vidas/vidas.png" />
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="imagenesInicio" id="imagenesInicio">
+    <div class="stylesPlayerOne">
+      <div>
+        <span id="player1">Player 1</span>
+      </div>
+      <div>
+        <input id="input1" type="text" size="60" placeholder="Escribre tu nombre">
+      </div>
+    </div>
+
+    <button id="start-button" class="botonStart" onclick="startGame()"> PLAY </button>
+
+    <div class="stylesPlayerTwo">
+      <div>
+        <span id="player2"> Player 2</span>
+      </div>
+      <div>
+        <input id="input2" type="text" size="60" placeholder="Escribre tu nombre">
+      </div>
+    </div>
+  </div>
+
+  <div class="resultadoPartida">
+    <div>
+      <div class="stylesPlayerOne">
+        <span id="resultadoPlayer1">Player 1</span>
+      </div>
+      <div class="ganarPerderP1">
+        <img id="resultadoImageWinP1" src="./images/youWin/winner-PNG.png" />
+      </div>
+      <div class="ganarPerderP1">
+        <img id="resultadoImageLoseP1" src="./images/gameOver/looser2.png" />
+      </div>
+    </div>
+
+    <div>
+      <div class="stylesPlayerTwo">
+        <span id="resultadoPlayer2"> Player 2</span>
+      </div>
+      <div class="ganarPerderP2">
+        <img id="resultadoImageLoseP2" src="./images/gameOver/looser2.png" />
+      </div>
+      <div class="ganarPerderP2">
+        <img id="resultadoImageWinP2" src="./images/youWin/winner-PNG.png" />
+      </div>
+    </div>
+  </div>
+
+  <canvas id="canvas" width="1500px" height="1000px"></canvas>
+
+  <section id="reloj">
+    <div id="esfera">
+      <span id="minDec" class="number">0</span><span id="minUni" class="number">2</span><span>:</span><span id="secDec"
+        class="number">0</span><span id="secUni" class="number">0</span>
+    </div>
+  </section>
+
+  <img id="imgAgain" class="playAgain" src="./images/playAgain/play_again_two.jpg"/>
+  <button id="again-button" class="botonAgain" onclick="playAgain()"> PLAY AGAIN </button>
+
+
+
+  <script src="ball.js"></script>
+  <script src="chronometer.js"></script>
+  <script src="player.js"></script>
+  <script src="generalFunctions.js"></script>
+  <script src="Game.js"></script>
 </body>
-
-

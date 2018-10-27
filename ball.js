@@ -4,7 +4,7 @@ var ball = {
   vx: 5,
   vy: 2,
   radius: 25,
-  color: "#0080FF",
+  color: "#FF4000",
   draw: function() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
