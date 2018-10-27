@@ -63,7 +63,7 @@ function colisionJ1() {
       }, 1000);
     } else if (
       ball.y + ball.radius -3 >= playerOne.barraPlayerY &&
-      ball.y + ball.radius -3<= playerOne.barraPlayerY
+      ball.y + ball.radius -3 <= playerOne.barraPlayerY
     ) {
       lifePlayerOne--;
       quitarVidaP1();
@@ -71,7 +71,7 @@ function colisionJ1() {
       setTimeout(function() {
         ball.reset();
         startInterval();
-      }, 1000);
+      }, 1500);
       //alert("1 Vida menos  J1!!");
     }
   }
@@ -103,7 +103,7 @@ function colisionJ2() {
       setTimeout(function() {
         ball.reset();
         startInterval();
-      }, 1000);
+      }, 1500);
       //alert("1 Vida menos  J2!!");
     }
   }
@@ -169,7 +169,8 @@ function colisionParedes() {
     ball.y + ball.vy > canvas.height - ball.radius ||
     ball.y + ball.vy < ball.radius
   ) {
-    ball.y = ball.radius;
+    //ball.y = ball.radius;
+    ball.vy *= -1;
   }
   //si la bola es menor que 0 entra por la pared izquierda y sale por la derecha
   if (ball.x + ball.vx < 0) {
